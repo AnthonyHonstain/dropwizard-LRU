@@ -1,7 +1,5 @@
 package com.example.helloworld.lrucache;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * Created by Anthony Honstain on 1/28/17.
  */
@@ -16,6 +14,14 @@ public class PriorityLinkedList {
     public PriorityLinkedList(int maxCapacity) {
         this.maxCapacity = maxCapacity;
         this.size = 0;
+    }
+
+    public PriorityNode getHeadNewest() {
+        return headNewest;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public PriorityNode removeOldest() {
@@ -72,23 +78,19 @@ public class PriorityLinkedList {
     public void insert(PriorityNode priorityNode) {
         assert(size < maxCapacity);
 
-        if (size == 0) {
+        if (size <= 0) {
             assert(headNewest == null && tailOldest == null);
             headNewest = priorityNode;
             tailOldest = priorityNode;
             priorityNode.setLeftNode(null);
             priorityNode.setRightNode(null);
         }
-        else if (size > 0) {
+        else {
             PriorityNode prevHead = headNewest;
             headNewest = priorityNode;
             headNewest.setLeftNode(null);
             headNewest.setRightNode(prevHead);
             prevHead.setLeftNode(headNewest);
-
-        }
-        else {
-            throw new NotImplementedException();
         }
         size += 1;
     }
